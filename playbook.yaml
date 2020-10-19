@@ -1,0 +1,7 @@
+- name: Add Rule to Palo Alto
+  collections:
+  - paloaltonetworks.panos
+  hosts: localhost
+  roles:
+    - add-rule
+  

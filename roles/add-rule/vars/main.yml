@@ -1,0 +1,10 @@
+---
+# vars file for add-rule
+provider:
+  ip_address: ''
+  username: ''
+  password: ''
+rule_name: ''
+description: ''
+paloalto: ''
+both: ''
