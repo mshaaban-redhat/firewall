@@ -1,10 +1,24 @@
 ---
 # vars file for add-rule
 provider:
-  ip_address: ''
-  username: ''
-  password: ''
-rule_name: ''
-description: ''
-paloalto: ''
-both: ''
+  ip_address: ""
+  username: ""
+  password: ""
+rule_name: ""
+description: ""
+paloalto: ""
+both: ""
+source_zone: ""
+dest_zone: ""
+source_ip: ""
+source_user: ""
+dest_ip: ""
+category: ""
+application: ""
+service: ""
+hip_profiles: ""
+jun_provider:
+  host: ""
+  password: ""
+  username: ""
+jun_lines: ""
