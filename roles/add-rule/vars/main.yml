@@ -1,24 +1,25 @@
 ---
 # vars file for add-rule
-provider:
-  ip_address: ""
-  username: ""
-  password: ""
-rule_name: ""
-description: ""
+panos_provider:
+  panos_ip_address: ""
+  panos_username: ""
+  panos_password: ""
+panos_rule_name: ""
+panos_description: ""
 paloalto: ""
 both: ""
-source_zone: ""
-dest_zone: ""
-source_ip: ""
-source_user: ""
-dest_ip: ""
-category: ""
-application: ""
-service: ""
-hip_profiles: ""
+panos_source_zone: []
+panos_dest_zone: []
+panos_source_ip: []
+panos_source_user: []
+panos_dest_ip: []
+panos_category: []
+panos_application: []
+panos_service: []
+panos_hip_profiles: []
 jun_provider:
-  host: ""
-  password: ""
-  username: ""
+  jun_host: ""
+  jun_password: ""
+  jun_username: ""
 jun_lines: ""
+juniper: ""
