@@ -1,40 +1,59 @@
 ---
 # tasks file for add-rule
-- name: set variables to right type
-  set_fact:
-    panos_provider: "{{ panos_provider | combine ({ 'username': panos_username, 'password': panos_password, 'ip_address': panos_ip_address }) }}"
-    panos_source_zone: "{{ panos_source_zone | from_yaml }}"
-    panos_dest_zone: "{{ panos_dest_zone | from_yaml }}"
-    panos_source_ip: "{{ panos_source_ip | from_yaml }}"
-    panos_source_user: "{{ panos_source_user | from_yaml }}"
-    panos_dest_ip: "{{ panos_dest_ip | from_yaml }}"
-    panos_category: "{{ category | from_yaml }}"
-    panos_application: "{{ panos_application | from_yaml }}"
-    panos_service: "{{ panos_service | from_yaml }}"
-    panos_hip_profiles: "{{ panos_hip_profiles | from_yaml }}"
-    jun_provider: "{{ jun_provider | combine ({ 'username': jun_username, 'password': jun_password, 'host': jun_host }) }}"
-    jun_lines: "{{ jun_lines | from_yaml }}"
 
-- name: Add rule to Palo Alto
-  panos_security_rule:
-    provider: "{{ panos_provider }}"
-    rule_name: "{{ panos_rule_name }}"
-    description: "{{ panos_description }}"
-    source_zone: "{{ panos_source_zone }}"
-    destination_zone: "{{ panos_dest_zone }}"
-    source_ip: "{{ panos_source_ip }}"
-    source_user: "{{ panos_source_user }}"
-    destination_ip: "{{ panos_dest_ip }}"
-    category: "{{ panos_category }}"
-    application: "{{ panos_application }}"
-    service: "{{ panos_service }}"
-    hip_profiles: "{{ panos_hip_profiles }}"
-    action: 'allow'
-    commit: 'False'
+- name: Palo Alto Rule
+  block:
+    - name: set variables to right type
+      set_fact:
+        panos_provider: "{{ panos_provider | combine ({ 'username': panos_username, 'password': panos_password, 'ip_address': panos_ip_address }) }}"
+        panos_source_zone: "{{ panos_source_zone | from_yaml }}"
+        panos_dest_zone: "{{ panos_dest_zone | from_yaml }}"
+        panos_source_ip: "{{ panos_source_ip | from_yaml }}"
+        panos_source_user: "{{ panos_source_user | from_yaml }}"
+        panos_dest_ip: "{{ panos_dest_ip | from_yaml }}"
+        panos_category: "{{ category | from_yaml }}"
+        panos_application: "{{ panos_application | from_yaml }}"
+        panos_service: "{{ panos_service | from_yaml }}"
+        panos_hip_profiles: "{{ panos_hip_profiles | from_yaml }}"
+
+    - name: Add rule to Palo Alto
+      panos_security_rule:
+        provider: "{{ panos_provider }}"
+        rule_name: "{{ panos_rule_name }}"
+        description: "{{ panos_description }}"
+        source_zone: "{{ panos_source_zone }}"
+        destination_zone: "{{ panos_dest_zone }}"
+        source_ip: "{{ panos_source_ip }}"
+        source_user: "{{ panos_source_user }}"
+        destination_ip: "{{ panos_dest_ip }}"
+        category: "{{ panos_category }}"
+        application: "{{ panos_application }}"
+        service: "{{ panos_service }}"
+        hip_profiles: "{{ panos_hip_profiles }}"
+        action: 'allow'
+        commit: 'False'
   when: paloalto == true or both == true
 
-- name: Add rule to Juniper
-  junos_config:
-    provider: "{{ jun_provider }}"
-    lines: "{{ jun_lines }}"
+- name: Juniper Rule
+  block:
+    - name: set variables to right type
+      set_fact:
+        jun_provider: "{{ jun_provider | combine ({ 'username': jun_username, 'password': jun_password, 'host': jun_host }) }}"
+        jun_source_zone: "{{ jun_source_zone | from_yaml }}"
+        jun_dest_zone: "{{ jun_dest_zone | from_yaml }}"
+        jun_policy_name: "{{ jun_policy_name | from_yaml }}"
+        jun_source_address: "{{ jun_source_address | from_yaml }}"
+        jun_dest_address: "{{ jun_dest_address | from_yaml }}"
+        jun_application: "{{ jun_application | from_yaml }}"
+
+    - name: Add rule to Juniper
+      junos_config:
+        provider: "{{ jun_provider }}"
+        lines:
+          - set security policies from-zone "{{jun_source_zone}}" to-zone "{{ jun_dest_zone }}" policy "{{ jun_policy_name }}" match source-address "{{ jun_source_address }}"
+          - set security policies from-zone "{{jun_source_zone}}" to-zone "{{ jun_dest_zone }}" policy "{{ jun_policy_name }}" destination-address "{{ jun_dest_address }}"
+          - set security policies from-zone "{{jun_source_zone}}" to-zone "{{ jun_dest_zone }}" policy "{{ jun_policy_name }}" destination-address match application "{{ jun_application }}"
+          - set security policies from-zone "{{jun_source_zone}}" to-zone "{{ jun_dest_zone }}" policy "{{ jun_policy_name }}" destination-address then permit
+          - set security policies from-zone "{{jun_source_zone}}" to-zone "{{ jun_dest_zone }}" policy "{{ jun_policy_name }}" destination-address log session-close
+        confirm: 0
   when: juniper == true or both == true
