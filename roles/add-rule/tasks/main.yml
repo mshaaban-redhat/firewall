@@ -15,7 +15,7 @@
     - name: Add rule to Palo Alto
       panos_security_rule:
 #       provider: "{{ panos_provider }}"
-        ip_address: "{{ panos_ipaddress }}"
+        ip_address: "{{ panos_ip_address }}"
         username: "{{ panos_username }}"
         password: "{{ panos_password }}"
         rule_name: "{{ panos_rule_name }}"
