@@ -8,12 +8,9 @@
         panos_source_zone: "{{ panos_source_zone | from_yaml }}"
         panos_dest_zone: "{{ panos_dest_zone | from_yaml }}"
         panos_source_ip: "{{ panos_source_ip | from_yaml }}"
-        panos_source_user: "{{ panos_source_user | from_yaml }}"
         panos_dest_ip: "{{ panos_dest_ip | from_yaml }}"
-        panos_category: "{{ category | from_yaml }}"
         panos_application: "{{ panos_application | from_yaml }}"
         panos_service: "{{ panos_service | from_yaml }}"
-        panos_hip_profiles: "{{ panos_hip_profiles | from_yaml }}"
 
     - name: Add rule to Palo Alto
       panos_security_rule:
@@ -23,14 +20,10 @@
         source_zone: "{{ panos_source_zone }}"
         destination_zone: "{{ panos_dest_zone }}"
         source_ip: "{{ panos_source_ip }}"
-        source_user: "{{ panos_source_user }}"
         destination_ip: "{{ panos_dest_ip }}"
-        category: "{{ panos_category }}"
         application: "{{ panos_application }}"
         service: "{{ panos_service }}"
-        hip_profiles: "{{ panos_hip_profiles }}"
         action: 'allow'
-        commit: 'False'
   when: paloalto == true or both == true
 
 - name: Juniper Rule
