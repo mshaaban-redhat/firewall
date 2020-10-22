@@ -1,9 +1,12 @@
 ---
 # vars file for add-rule
+panos_ip_address: ""
+panos_username: ""
+panos_password: ""
 panos_provider:
-  panos_ip_address: ""
-  panos_username: ""
-  panos_password: ""
+  "{{ panos_ip_address }}"
+  "{{ panos_username }}"
+  "{{ panos_password }}"
 panos_rule_name: ""
 panos_description: ""
 paloalto: ""
@@ -17,10 +20,13 @@ panos_category: []
 panos_application: []
 panos_service: []
 panos_hip_profiles: []
+jun_host: ""
+jun_username: ""
+jun_password: ""
 jun_provider:
-  jun_host: ""
-  jun_password: ""
-  jun_username: ""
+  "{{ jun_host }}"
+  "{{ jun_password }}"
+  "{{ jun_username }}"
 jun_source_zone: ""
 jun_dest_zone: ""
 jun_source_address: ""

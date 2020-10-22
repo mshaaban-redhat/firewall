@@ -5,7 +5,6 @@
   block:
     - name: set variables to right type
       set_fact:
-        panos_provider: "{{ panos_provider | combine ({ 'username': panos_username, 'password': panos_password, 'ip_address': panos_ip_address }) }}"
         panos_source_zone: "{{ panos_source_zone | from_yaml }}"
         panos_dest_zone: "{{ panos_dest_zone | from_yaml }}"
         panos_source_ip: "{{ panos_source_ip | from_yaml }}"
@@ -38,7 +37,6 @@
   block:
     - name: set variables to right type
       set_fact:
-        jun_provider: "{{ jun_provider | combine ({ 'username': jun_username, 'password': jun_password, 'host': jun_host }) }}"
         jun_source_zone: "{{ jun_source_zone | from_yaml }}"
         jun_dest_zone: "{{ jun_dest_zone | from_yaml }}"
         jun_policy_name: "{{ jun_policy_name | from_yaml }}"
