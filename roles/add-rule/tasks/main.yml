@@ -24,7 +24,7 @@
         application: "{{ panos_application }}"
         service: "{{ panos_service }}"
         action: 'allow'
-  when: paloalto == true or both == true
+  when: paloalto == 'true' or both == "true"
 
 - name: Juniper Rule
   block:
