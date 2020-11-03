@@ -1,15 +1,15 @@
 ---
 # vars file for add-rule
-panos_ip_address: 
-panos_username: 
-panos_password: 
-panos_provider:
+panos_ip_address: ''
+panos_username: ''
+panos_password: ''
+panos_provider: 
   ip_address: "{{ panos_ip_address }}"
   username: "{{ panos_username }}"
   password: "{{ panos_password }}"
 panos_rule_name: ""
 panos_description: ""
-paloalto: ""
+paloalto: "true"
 both: ""
 panos_source_zone: []
 panos_dest_zone: []
