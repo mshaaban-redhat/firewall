@@ -1,6 +1,7 @@
 ---
 # vars file for add-rule
 panos_ip_address: ''
+paloalto: 'true'
 panos_username: ''
 panos_password: ''
 panos_provider: 

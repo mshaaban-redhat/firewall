@@ -1,5 +1,10 @@
 ---
 # tasks file for add-rule
+ 
+- name: install pandevice
+  shell:  ./setup.py install
+  args:
+    chdir: ./roles/add-rule/library/pandevice-0.14.0
 
 - name: Palo Alto Rule
   block:
